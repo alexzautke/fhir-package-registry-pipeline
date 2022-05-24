@@ -91,10 +91,10 @@ runs:
    # Install dependencies
     - name: Install dependencies
       run: |
-        apt-get update && \
-        apt-get -y --no-install-recommends install libxml2-utils xmlstarlet && \
-        apt-get autoremove -y && \
-        apt-get clean
+        sudo apt-get update && \
+        sudo apt-get -y --no-install-recommends install libxml2-utils xmlstarlet && \
+        sudp apt-get autoremove -y && \
+        sudp apt-get clean
       shell: bash
       
     # Copy FHIR package to package feed repository

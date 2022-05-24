@@ -105,7 +105,7 @@ runs:
         ls
         
         chmod +x update-fhir-package-feed.sh
-        ./update-fhir-package-feed $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/package-feed.xml $GITHUB_WORKSPACE/$PATH_TO_CONFORMANCE_RESOURCES/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
+        ./update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/package-feed.xml $GITHUB_WORKSPACE/$PATH_TO_CONFORMANCE_RESOURCES/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
       shell: bash
       env:
         PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}

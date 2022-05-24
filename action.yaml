@@ -64,6 +64,8 @@ runs:
     # Create FHIR package
     - name: Create FHIR package
       run: |
+        pwd
+        ls
         fhir pack
       shell: bash
       

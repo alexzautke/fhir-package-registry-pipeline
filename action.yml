@@ -1,4 +1,4 @@
-name: Release-FHIR-Package-To-Registry (GitHub Actions)
+name: release-fhir-package-pipeline (GitHub Actions)
 description: Release a FHIR Package to a package regsitry as part of a GitHub Actions pipeline
 
 inputs:

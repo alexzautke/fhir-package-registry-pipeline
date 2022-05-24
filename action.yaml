@@ -1,0 +1,2 @@
+name: release-fhir-package-pipeline
+description: Release a FHIR Package to a package regsitry as part of a GitHub Actions pipeline

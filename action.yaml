@@ -1,6 +1,14 @@
 name: Release-FHIR-Package-To-Registry (GitHub Actions)
 description: Release a FHIR Package to a package regsitry as part of a GitHub Actions pipeline
 
+inputs:
+  SIMPLIFIER_USERNAME:
+    description: 'Simplifier email address (not username), needed for running Quality Control checks. Please use GitHub Secrets for this variable.'
+    required: true
+  SIMPLIFIER_PASSWORD:
+    description: 'Simplifier password, needed for running Quality Control checks. Please use GitHub Secrets for this variable.'
+    required: true
+
 runs:
   using: "composite"
   steps:

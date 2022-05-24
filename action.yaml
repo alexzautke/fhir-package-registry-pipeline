@@ -14,6 +14,8 @@ inputs:
   PATH_TO_CONFORMANCE_RESOURCES:
    description: 'Relative path to folder with conformance resources incl. package.json'
    required: true
+  BASE_URL_PACKAGE_FEED:
+   description: 'Base url incl. subpath of the FHIR package feed'
   
 
 runs:
@@ -95,8 +97,8 @@ runs:
           cd $PACKAGE_FEED_REPO_PATH/packages/
           ls
           
-          echo "DIR: $PACKAGE_FEED_REPO_PATH/packages/$packageName/"
-          cd $PACKAGE_FEED_REPO_PATH/packages/$packageName/
+          echo "DIR: $packageName/"
+          cd $packageName/
           ls
           
         done
@@ -104,3 +106,13 @@ runs:
       env:
         PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}
         PATH_TO_CONFORMANCE_RESOURCES: ${{ inputs.PATH_TO_CONFORMANCE_RESOURCES }}
+        
+    # Update FHIR package feed
+    - name: Update FHIR Package Feed
+      run: |
+        cd $GITHUB_WORKSPACE
+        cd update-fhir-package-feed
+        ./update-fhir-package-feed $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/package-feed.xml $GITHUB_WORKSPACE/$PATH_TO_CONFORMANCE_RESOURCES/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
+      env:
+        PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}
+        BASE_URL_PACKAGE_FEED: ${{ inputs.BASE_URL_PACKAGE_FEED }}

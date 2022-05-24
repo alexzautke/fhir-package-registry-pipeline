@@ -89,13 +89,13 @@ runs:
     # --------------------------------------------------------------------------------------------------- #
    
    # Install dependencies
-   - name: Install dependencies
-     run: |
-      apt-get update && \
-      apt-get -y --no-install-recommends install libxml2-utils xmlstarlet && \
-      apt-get autoremove -y && \
-      apt-get clean
-     shell: bash
+    - name: Install dependencies
+      run: |
+        apt-get update && \
+        apt-get -y --no-install-recommends install libxml2-utils xmlstarlet && \
+        apt-get autoremove -y && \
+        apt-get clean
+      shell: bash
       
     # Copy FHIR package to package feed repository
     - name: Copy FHIR package to package feed repository 

@@ -66,3 +66,17 @@ runs:
       run: |
         fhir pack
       shell: bash
+      
+    # Copy FHIR package to package feed repository
+    - name: Copy FHIR package to package feed repository 
+      run: |
+        for packageFile in *.tgz; 
+        do
+          fileName=$(basename $packageFile)
+          cp $packageFile $PACKAGE_FEED_REPO_PATH/packages/$fileName/
+          cd $PACKAGE_FEED_REPO_PATH/packages/$fileName/
+          ls
+        done
+      shell: bash
+      env:
+        PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}

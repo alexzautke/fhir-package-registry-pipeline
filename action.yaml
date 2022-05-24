@@ -64,6 +64,7 @@ runs:
     # Create FHIR package
     - name: Create FHIR package
       run: |
+        cd $PATH_TO_CONFORMANCE_RESOURCES
         for requiredElementPackageJson in "name" "version" "description" "author"
         do
           requiredElementFound=$(jq .$requiredElementPackageJson package.json)
@@ -73,19 +74,30 @@ runs:
           fi
         done
         fhir pack
+        cd ..
       shell: bash
+      env:
+        PATH_TO_CONFORMANCE_RESOURCES: ${{ inputs.PATH_TO_CONFORMANCE_RESOURCES }}
       
     # Copy FHIR package to package feed repository
     - name: Copy FHIR package to package feed repository 
       run: |
-        for packageFile in *.tgz; 
+        for packageFile in $PATH_TO_CONFORMANCE_RESOURCES/*.tgz; 
         do
-          packageName=$(basename $packageFile .tgz)
+          packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
           mkdir -p "$PACKAGE_FEED_REPO_PATH/packages/$packageName/"
-          cp $packageName.tgz $PACKAGE_FEED_REPO_PATH/packages/$packageName/
+          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz $PACKAGE_FEED_REPO_PATH/packages/$packageName/
+          
+          echo "DIR: $PACKAGE_FEED_REPO_PATH/packages/"
+          cd $PACKAGE_FEED_REPO_PATH/packages/
+          ls
+          
+          echo "DIR: $PACKAGE_FEED_REPO_PATH/packages/$packageName/"
           cd $PACKAGE_FEED_REPO_PATH/packages/$packageName/
           ls
+          
         done
       shell: bash
       env:
         PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}
+        PATH_TO_CONFORMANCE_RESOURCES: ${{ inputs.PATH_TO_CONFORMANCE_RESOURCES }}

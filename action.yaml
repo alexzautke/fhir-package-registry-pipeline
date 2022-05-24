@@ -91,16 +91,7 @@ runs:
         do
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
           mkdir -p "$PACKAGE_FEED_REPO_PATH/packages/$packageName/"
-          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz $PACKAGE_FEED_REPO_PATH/packages/$packageName/
-          
-          echo "DIR: $PACKAGE_FEED_REPO_PATH/packages/"
-          cd $PACKAGE_FEED_REPO_PATH/packages/
-          ls
-          
-          echo "DIR: $packageName/"
-          cd $packageName/
-          ls
-          
+          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz $PACKAGE_FEED_REPO_PATH/packages/$packageName/          
         done
       shell: bash
       env:
@@ -110,8 +101,14 @@ runs:
     # Update FHIR package feed
     - name: Update FHIR Package Feed
       run: |
+        echo "DIR: $GITHUB_WORKSPACE"
         cd $GITHUB_WORKSPACE
+        ls
+        
+        echo "DIR: update-fhir-package-feed"
         cd update-fhir-package-feed
+        ls
+        
         ./update-fhir-package-feed $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/package-feed.xml $GITHUB_WORKSPACE/$PATH_TO_CONFORMANCE_RESOURCES/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
       shell: bash
       env:

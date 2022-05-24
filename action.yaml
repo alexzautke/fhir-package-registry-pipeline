@@ -67,7 +67,8 @@ runs:
         for requiredElementPackageJson in "name" "version" "description" "author"
         do
           requiredElementFound=$(jq .$requiredElementPackageJson package.json)
-          if [[ ! -z "$requiredElementFound" ]]; then
+          echo $requiredElementFound
+          if [[ $requiredElementFound = null ]]; then
             echo ".$requiredElementPackageJson must be present in package.json"
             exit 1
           fi

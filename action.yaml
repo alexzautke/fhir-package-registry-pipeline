@@ -113,6 +113,7 @@ runs:
         cd $GITHUB_WORKSPACE
         cd update-fhir-package-feed
         ./update-fhir-package-feed $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/package-feed.xml $GITHUB_WORKSPACE/$PATH_TO_CONFORMANCE_RESOURCES/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
+      shell: bash
       env:
         PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}
         BASE_URL_PACKAGE_FEED: ${{ inputs.BASE_URL_PACKAGE_FEED }}

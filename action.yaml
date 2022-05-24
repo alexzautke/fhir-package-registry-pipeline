@@ -64,8 +64,14 @@ runs:
     # Create FHIR package
     - name: Create FHIR package
       run: |
-        pwd
-        ls
+        for requiredElementPackageJson in "name" "version" "description" "author"
+        do
+          jq -e .$requiredElementPackageJson package.json
+          if ! [ $? -eq 0 ]; then
+            echo ".$requiredElementPackageJson must be present in package.json"
+            exit 1
+          fi
+        done
         fhir pack
       shell: bash
       

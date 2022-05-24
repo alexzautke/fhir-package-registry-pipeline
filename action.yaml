@@ -115,9 +115,6 @@ runs:
     - name: Update FHIR Package Feed
       run: |
         cd $GITHUB_WORKSPACE/update-fhir-package-feed
-        ls
-        
-        chmod +x update-fhir-package-feed.sh
         ./update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/package-feed.xml "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_PATH"/packages/example-fhir-package-test/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
       shell: bash
       env:

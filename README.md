@@ -7,6 +7,8 @@ GitHub Action Pipeline for version management of FHIR conformance resource using
 
 The current pipeline allows to manage a FHIR package feed fully in GitHub, no external hosting needed.
 
+<img align="center" width="40%" src="fhir-package-registry-pipeline.png">
+
 ## Options
 
 You can specify the following options using the ["with" syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith) in your GitHub Actions yml configuration:

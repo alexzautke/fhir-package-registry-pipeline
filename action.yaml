@@ -9,7 +9,7 @@ inputs:
     description: 'Simplifier password, needed for running Quality Control checks. Please use GitHub Secrets for this variable.'
     required: true
   PACKAGE_FEED_REPO_PATH:
-   description: 'Path to the package feed repository, repository will be used to extract the package feed and store the FHIR package itself'
+   description: 'Relative Path to the package feed repository, repository will be used to extract the package feed and store the FHIR package itself'
    required: true
   
 

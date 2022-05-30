@@ -16,6 +16,13 @@ inputs:
    required: true
   BASE_URL_PACKAGE_FEED:
    description: 'Base url incl. subpath of the FHIR package feed'
+   required: true
+  PACKAGE_FEED_FILE_NAME:
+   description: 'Filename of the FHIR package feed which shall be updated'
+   required: true
+  PATH_TO_PACKAGE_STORAGE:
+   description: 'Path to parent folder in which all packages are to be stored in Git'
+   required: true
   
 
 runs:
@@ -104,19 +111,21 @@ runs:
         do
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
           mkdir -p "$PACKAGE_FEED_REPO_PATH/packages/$packageName/"
-          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz $PACKAGE_FEED_REPO_PATH/packages/$packageName/          
+          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz "$PACKAGE_FEED_REPO_PATH"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/          
         done
       shell: bash
       env:
         PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}
         PATH_TO_CONFORMANCE_RESOURCES: ${{ inputs.PATH_TO_CONFORMANCE_RESOURCES }}
+        PATH_TO_PACKAGE_STORAGE: ${{ inputs.PATH_TO_PACKAGE_STORAGE }}
         
     # Update FHIR package feed
     - name: Update FHIR Package Feed
       run: |
         cd $GITHUB_WORKSPACE/update-fhir-package-feed
-        ./update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/package-feed.xml "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_PATH"/packages/example-fhir-package-test/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
+        ./update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_PATH"/"$PATH_TO_PACKAGE_STORAGE"/example-fhir-package-test/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
       shell: bash
       env:
         PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}
         BASE_URL_PACKAGE_FEED: ${{ inputs.BASE_URL_PACKAGE_FEED }}
+        PACKAGE_FEED_FILE_NAME: ${{ inputs.PACKAGE_FEED_FILE_NAME }}

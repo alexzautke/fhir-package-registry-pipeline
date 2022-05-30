@@ -17,24 +17,24 @@ The current pipeline allows to manage a FHIR package feed fully in GitHub, no ex
 
 You can specify the following options using the ["with" syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepswith) in your GitHub Actions yml configuration:
 
- * SIMPLIFIER_USERNAME:
-    description: 'Simplifier email address (not username), needed for running Quality Control checks. Please use GitHub Secrets for this variable.'
+ * SIMPLIFIER_USERNAME:<br>
+    description: 'Simplifier email address (not username), needed for running Quality Control checks. Please use GitHub Secrets for this variable.'<br>
     required: true
- * SIMPLIFIER_PASSWORD:
-    description: 'Simplifier password, needed for running Quality Control checks. Please use GitHub Secrets for this variable.'
+ * SIMPLIFIER_PASSWORD:<br>
+    description: 'Simplifier password, needed for running Quality Control checks. Please use GitHub Secrets for this variable.'<br>
     required: true
- * PACKAGE_FEED_REPO_PATH:
-   description: 'Relative path to the package feed repository, repository will be used to extract the package feed and store the FHIR package itself'
+ * PACKAGE_FEED_REPO_PATH:<br>
+   description: 'Relative path to the package feed repository, repository will be used to extract the package feed and store the FHIR package itself'<br>
    required: true
- * PATH_TO_CONFORMANCE_RESOURCES:
-   description: 'Relative path to folder with conformance resources incl. package.json'
+ * PATH_TO_CONFORMANCE_RESOURCES:<br>
+   description: 'Relative path to folder with conformance resources incl. package.json'<br>
    required: true
- * BASE_URL_PACKAGE_FEED:
-   description: 'Base url incl. subpath of the FHIR package feed'
+ * BASE_URL_PACKAGE_FEED:<br>
+   description: 'Base url incl. subpath of the FHIR package feed'<br>
    required: true
- * PACKAGE_FEED_FILE_NAME:
-   description: 'Filename of the FHIR package feed which shall be updated'
+ * PACKAGE_FEED_FILE_NAME:<br>
+   description: 'Filename of the FHIR package feed which shall be updated'<br>
    required: true
- * PATH_TO_PACKAGE_STORAGE:
-   description: 'Path to parent folder in which all packages are to be stored in Git'
+ * PATH_TO_PACKAGE_STORAGE:<br>
+   description: 'Path to parent folder in which all packages are to be stored in Git'<br>
    required: true

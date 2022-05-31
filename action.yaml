@@ -109,9 +109,12 @@ runs:
       run: |
         for packageFile in $PATH_TO_CONFORMANCE_RESOURCES/*.tgz; 
         do
+          tar zxf $packageFile
+          packageJson=$(cat package/package.json)
+          packageVersion=$(echo "$packageJson" | jq --raw-output .version)
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
-          mkdir -p "$PACKAGE_FEED_REPO_NAME/packages/$packageName/"
-          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz "$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/          
+          mkdir -p "$PACKAGE_FEED_REPO_NAME/packages/$packageName/$packageVersion/"
+          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz "$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/"$packageVersion"/          
         done
       shell: bash
       env:
@@ -128,7 +131,7 @@ runs:
           packageJson=$(cat package/package.json)
           packageVersion=$(echo "$packageJson" | jq --raw-output .version)
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
-          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_NAME/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/"$packageVersion"/"$packageFile" $BASE_URL_PACKAGE_FEED
+          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_NAME/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/"$packageVersion"/"$packageName" $BASE_URL_PACKAGE_FEED
         done
       shell: bash
       env:

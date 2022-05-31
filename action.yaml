@@ -8,7 +8,7 @@ inputs:
   SIMPLIFIER_PASSWORD:
     description: 'Simplifier password, needed for running Quality Control checks. Please use GitHub Secrets for this variable.'
     required: true
-  PACKAGE_FEED_REPO_PATH:
+  PACKAGE_FEED_REPO_NAME:
    description: 'Relative path to the package feed repository, repository will be used to extract the package feed and store the FHIR package itself'
    required: true
   PATH_TO_CONFORMANCE_RESOURCES:
@@ -110,12 +110,12 @@ runs:
         for packageFile in $PATH_TO_CONFORMANCE_RESOURCES/*.tgz; 
         do
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
-          mkdir -p "$PACKAGE_FEED_REPO_PATH/packages/$packageName/"
-          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz "$PACKAGE_FEED_REPO_PATH"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/          
+          mkdir -p "$PACKAGE_FEED_REPO_NAME/packages/$packageName/"
+          cp $PATH_TO_CONFORMANCE_RESOURCES/$packageName.tgz "$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/          
         done
       shell: bash
       env:
-        PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}
+        PACKAGE_FEED_REPO_NAME: ${{ inputs.PACKAGE_FEED_REPO_NAME }}
         PATH_TO_CONFORMANCE_RESOURCES: ${{ inputs.PATH_TO_CONFORMANCE_RESOURCES }}
         PATH_TO_PACKAGE_STORAGE: ${{ inputs.PATH_TO_PACKAGE_STORAGE }}
         
@@ -125,10 +125,11 @@ runs:
         for packageFile in $PATH_TO_CONFORMANCE_RESOURCES/*.tgz;
         do
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
-          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_PATH"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/$packageFile $BASE_URL_PACKAGE_FEED
+          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_NAME/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/"$packageFile" $BASE_URL_PACKAGE_FEED
         done
       shell: bash
       env:
-        PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}
+        PACKAGE_FEED_REPO_NAME: ${{ inputs.PACKAGE_FEED_REPO_NAME }}
         BASE_URL_PACKAGE_FEED: ${{ inputs.BASE_URL_PACKAGE_FEED }}
         PACKAGE_FEED_FILE_NAME: ${{ inputs.PACKAGE_FEED_FILE_NAME }}
+        PATH_TO_PACKAGE_STORAGE: ${{ inputs.PATH_TO_PACKAGE_STORAGE }}

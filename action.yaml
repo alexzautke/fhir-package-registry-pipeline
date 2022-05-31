@@ -132,6 +132,7 @@ runs:
         done
       shell: bash
       env:
+        PATH_TO_CONFORMANCE_RESOURCES: ${{ inputs.PATH_TO_CONFORMANCE_RESOURCES }}
         PACKAGE_FEED_REPO_NAME: ${{ inputs.PACKAGE_FEED_REPO_NAME }}
         BASE_URL_PACKAGE_FEED: ${{ inputs.BASE_URL_PACKAGE_FEED }}
         PACKAGE_FEED_FILE_NAME: ${{ inputs.PACKAGE_FEED_FILE_NAME }}

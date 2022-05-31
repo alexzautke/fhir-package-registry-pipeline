@@ -135,7 +135,7 @@ runs:
           packageVersion=$(echo "$packageJson" | jq --raw-output .version)
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
           packageFileName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile)
-          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_NAME/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/blob/"$PACKAGE_FEED_BRANCH_NAME"/"$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/"$packageVersion"/"$packageFileName"?raw=true $BASE_URL_PACKAGE_FEED
+          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_NAME/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/"$packageVersion"/"$packageFileName" $BASE_URL_PACKAGE_FEED
         done
       shell: bash
       env:

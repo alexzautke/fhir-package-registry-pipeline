@@ -122,8 +122,11 @@ runs:
     # Update FHIR package feed
     - name: Update FHIR Package Feed
       run: |
-        cd $GITHUB_WORKSPACE/update-fhir-package-feed
-        ./update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_PATH"/"$PATH_TO_PACKAGE_STORAGE"/example-fhir-package-test/example-fhir-package-test.tgz $BASE_URL_PACKAGE_FEED
+        for packageFile in $PATH_TO_CONFORMANCE_RESOURCES/*.tgz;
+        do
+          packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
+          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_PATH/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_PATH"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/$packageFile $BASE_URL_PACKAGE_FEED
+        done
       shell: bash
       env:
         PACKAGE_FEED_REPO_PATH: ${{ inputs.PACKAGE_FEED_REPO_PATH }}

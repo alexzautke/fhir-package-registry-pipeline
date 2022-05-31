@@ -11,6 +11,9 @@ inputs:
   PACKAGE_FEED_REPO_NAME:
    description: 'Relative path to the package feed repository, repository will be used to extract the package feed and store the FHIR package itself'
    required: true
+  PACKAGE_FEED_BRANCH_NAME:
+   description: 'Name of the branch to be used to store the FHIR packages'
+   required: true
   PATH_TO_CONFORMANCE_RESOURCES:
    description: 'Relative path to folder with conformance resources incl. package.json'
    required: true
@@ -132,7 +135,7 @@ runs:
           packageVersion=$(echo "$packageJson" | jq --raw-output .version)
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
           packageFileName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile)
-          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_NAME/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/"$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/"$packageVersion"/"$packageFileName" $BASE_URL_PACKAGE_FEED
+          $GITHUB_WORKSPACE/update-fhir-package-feed/update-fhir-package-feed.sh $GITHUB_WORKSPACE/$PACKAGE_FEED_REPO_NAME/$PACKAGE_FEED_FILE_NAME "$GITHUB_WORKSPACE"/blob/"$PACKAGE_FEED_BRANCH_NAME"/"$PACKAGE_FEED_REPO_NAME"/"$PATH_TO_PACKAGE_STORAGE"/"$packageName"/"$packageVersion"/"$packageFileName"?raw=true $BASE_URL_PACKAGE_FEED
         done
       shell: bash
       env:
@@ -141,3 +144,4 @@ runs:
         BASE_URL_PACKAGE_FEED: ${{ inputs.BASE_URL_PACKAGE_FEED }}
         PACKAGE_FEED_FILE_NAME: ${{ inputs.PACKAGE_FEED_FILE_NAME }}
         PATH_TO_PACKAGE_STORAGE: ${{ inputs.PATH_TO_PACKAGE_STORAGE }}
+        PACKAGE_FEED_BRANCH_NAME: ${{ inputs.PACKAGE_FEED_BRANCH_NAME }}

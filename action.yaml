@@ -124,7 +124,7 @@ runs:
       run: |
         for packageFile in $PATH_TO_CONFORMANCE_RESOURCES/*.tgz;
         do
-          tar zxf packageFile
+          tar zxf $packageFile
           packageJson=$(cat package/package.json)
           packageVersion=$(echo "$packageJson" | jq --raw-output .version)
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)

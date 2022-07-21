@@ -133,6 +133,8 @@ runs:
           packageName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile .tgz)
           packageFileName=$(basename $PATH_TO_CONFORMANCE_RESOURCES/$packageFile)
           
+          echo "PATH_TO_CONFORMANCE_RESOURCES $PATH_TO_CONFORMANCE_RESOURCES"
+          echo "packageFile $packageFile"
           echo "PACKAGE_FEED_REPO_NAME: $PACKAGE_FEED_REPO_NAME"
           echo "PACKAGE_FEED_FILE_NAME $PACKAGE_FEED_FILE_NAME"
           echo "PACKAGE_FEED_REPO_NAME $PACKAGE_FEED_REPO_NAME"

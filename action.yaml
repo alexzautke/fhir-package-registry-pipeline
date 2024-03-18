@@ -86,11 +86,6 @@ runs:
           fi
         done
         fhir pack
-
-        # Workaround for Firely.Terminal v2.5.0-beta-7, fhir pack will use a incorrect name in the filename
-        packageJson=$(cat package.json)
-        name=$(echo "$packageJson" | jq --raw-output .name)
-        mv *.tgz $name.tgz
         
       shell: bash
       env:
